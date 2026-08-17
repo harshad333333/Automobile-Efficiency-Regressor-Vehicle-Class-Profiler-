@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automobile Efficiency Regressor & Vehicle Class Profiler</title>
+    <meta name="description" content="Interactive Machine Learning dashboard for vehicle fuel efficiency (MPG) regression with Ridge, Lasso, ElasticNet and unsupervised K-Means physical design archetype profiling on the UCI Auto MPG dataset.">
+    <meta name="keywords" content="Machine Learning, Auto MPG, Ridge Regression, Lasso, ElasticNet, K-Means Clustering, Data Science, Vehicle Profiler, Fuel Economy">
+    
+    <!-- Open Graph / Social Meta -->
+    <meta property="og:title" content="Automobile Efficiency Regressor & Vehicle Class Profiler">
+    <meta property="og:description" content="Explore regularized regression models and vehicle physical design clustering on the Auto MPG dataset.">
+    <meta property="og:type" content="website">
+
+    <!-- Stylesheets & Fonts -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="brand-logo">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-gauge-high"></i>
+                </div>
+                <span>AutoMetrics<span style="color: var(--primary-cyan);">AI</span></span>
+                <span class="brand-badge">ML Studio</span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="#simulator" class="nav-link active"><i class="fa-solid fa-sliders"></i> MPG Simulator</a></li>
+                <li><a href="#profiler" class="nav-link"><i class="fa-solid fa-shapes"></i> Archetype Profiler</a></li>
+                <li><a href="#diagnostics" class="nav-link"><i class="fa-solid fa-chart-line"></i> Model Lab</a></li>
+                <li><a href="#dataset" class="nav-link"><i class="fa-solid fa-database"></i> Dataset Explorer</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button class="btn-github" id="openDeployGuideBtn">
+                    <i class="fa-brands fa-github"></i> Deploy to GitHub
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="main-container">
+
+        <!-- Hero Header -->
+        <header class="hero-section">
+            <div class="hero-pill">
+                <i class="fa-solid fa-bolt"></i> Regularized Machine Learning & Unsupervised Clustering
+            </div>
+            <h1 class="hero-title">Automobile Efficiency Regressor &<br>Vehicle Class Profiler</h1>
+            <p class="hero-subtitle">
+                Balancing powertrain engineering and vehicle curb weight to optimize fuel economy. Group vehicles into physical design archetypes and simulate live MPG predictions using regularized regression.
+            </p>
+
+            <!-- Live Telemetry Ticker -->
+            <div class="telemetry-ticker">
+                <div class="telemetry-card">
+                    <div class="telemetry-label">
+                        <span>Analyzed Fleet</span>
+                        <i class="fa-solid fa-car-side" style="color: var(--primary-cyan);"></i>
+                    </div>
+                    <div class="telemetry-value" id="statTotalCars">398</div>
+                    <div class="telemetry-meta">UCI Auto MPG Database</div>
+                </div>
+
+                <div class="telemetry-card">
+                    <div class="telemetry-label">
+                        <span>Regression Accuracy</span>
+                        <i class="fa-solid fa-bullseye" style="color: var(--accent-emerald);"></i>
+                    </div>
+                    <div class="telemetry-value" id="statR2">0.848</div>
+                    <div class="telemetry-meta">R² Variance Explained</div>
+                </div>
+
+                <div class="telemetry-card">
+                    <div class="telemetry-label">
+                        <span>Standard Error</span>
+                        <i class="fa-solid fa-microchip" style="color: var(--primary-blue);"></i>
+                    </div>
+                    <div class="telemetry-value" id="statRmse">2.85 <span style="font-size: 1rem;">MPG</span></div>
+                    <div class="telemetry-meta">Root Mean Square Error</div>
+                </div>
+
+                <div class="telemetry-card">
+                    <div class="telemetry-label">
+                        <span>Vehicle Archetypes</span>
+                        <i class="fa-solid fa-cubes-stacked" style="color: var(--accent-amber);"></i>
+                    </div>
+                    <div class="telemetry-value">4 <span style="font-size: 1rem;">Clusters</span></div>
+                    <div class="telemetry-meta">K-Means Physical Profiler</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Section 1: Live MPG Simulator & Configurator -->
+        <section id="simulator" style="margin-bottom: 4rem;">
+            <div class="section-header">
+                <div>
+                    <div class="section-tag"><i class="fa-solid fa-wand-magic-sparkles"></i> Supervised Regression Engine</div>
+                    <h2 class="section-title">Interactive What-If Vehicle Configurator</h2>
+                    <p class="section-desc">Adjust powertrain specifications, tuning weights, and regularization penalty in real-time to observe instant fuel economy predictions.</p>
+                </div>
+            </div>
+
+            <div class="grid-2col">
+                <!-- Left: Controls & Sliders -->
+                <div class="panel-card">
+                    <div class="panel-card-header">
+                        <div class="panel-card-title">
+                            <i class="fa-solid fa-sliders" style="color: var(--primary-cyan);"></i> Vehicle Specifications
+                        </div>
+                        <span style="font-size: 0.8rem; color: var(--text-dim);">Live Reactive Inputs</span>
+                    </div>
+
+                    <!-- Model Algorithm Selector -->
+                    <div style="margin-bottom: 0.6rem; font-size: 0.82rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">
+                        Regularization Algorithm
+                    </div>
+                    <div class="model-selector-bar">
+                        <button class="model-btn active" data-model="ridge">Ridge (L₂)</button>
+                        <button class="model-btn" data-model="lasso">Lasso (L₁)</button>
+                        <button class="model-btn" data-model="elasticnet">ElasticNet</button>
+                        <button class="model-btn" data-model="ols">Standard OLS</button>
+                    </div>
+
+                    <!-- Hyperparameter Tuner -->
+                    <div class="hyperparam-strip" id="hyperparamBox">
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <span class="slider-title"><i class="fa-solid fa-scale-balanced" style="color: var(--primary-cyan);"></i> Penalty Alpha (&alpha;)</span>
+                                <span class="slider-val-badge" id="alphaValDisplay">1.00</span>
+                            </div>
+                            <input type="range" class="custom-range" id="alphaSlider" min="0.01" max="25" step="0.05" value="1.0">
+                        </div>
+
+                        <div class="slider-group" id="l1RatioGroup" style="display: none; margin-top: 0.8rem;">
+                            <div class="slider-header">
+                                <span class="slider-title"><i class="fa-solid fa-code-compare" style="color: var(--accent-purple);"></i> ElasticNet L1 Ratio (&rho;)</span>
+                                <span class="slider-val-badge" id="l1RatioDisplay">0.50</span>
+                            </div>
+                            <input type="range" class="custom-range" id="l1RatioSlider" min="0.0" max="1.0" step="0.05" value="0.5">
+                        </div>
+                    </div>
+
+                    <!-- Quick Preset Selectors -->
+                    <div style="margin-bottom: 0.6rem; font-size: 0.82rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">
+                        Load Vehicle Archetype Presets
+                    </div>
+                    <div class="presets-container">
+                        <button class="preset-chip" data-preset="corolla"><i class="fa-solid fa-car"></i> Toyota Corolla Eco</button>
+                        <button class="preset-chip" data-preset="mustang"><i class="fa-solid fa-fire"></i> Ford Mustang V8</button>
+                        <button class="preset-chip" data-preset="sedan"><i class="fa-solid fa-city"></i> Chevelle Cruiser</button>
+                        <button class="preset-chip" data-preset="datsun"><i class="fa-solid fa-bolt"></i> Datsun 280-ZX</button>
+                        <button class="preset-chip" data-preset="vw"><i class="fa-solid fa-leaf"></i> VW Rabbit Diesel</button>
+                    </div>
+
+                    <!-- Physical Powertrain Sliders -->
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <span class="slider-title"><i class="fa-solid fa-weight-hanging" style="color: var(--primary-blue);"></i> Curb Weight</span>
+                            <span class="slider-val-badge" id="weightDisplay">2,800 lbs</span>
+                        </div>
+                        <input type="range" class="custom-range" id="weightSlider" min="1600" max="5200" step="25" value="2800">
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <span class="slider-title"><i class="fa-solid fa-gauge" style="color: var(--accent-amber);"></i> Engine Horsepower</span>
+                            <span class="slider-val-badge" id="hpDisplay">100 HP</span>
+                        </div>
+                        <input type="range" class="custom-range" id="hpSlider" min="45" max="230" step="1" value="100">
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <span class="slider-title"><i class="fa-solid fa-gears" style="color: var(--accent-emerald);"></i> Engine Cylinders</span>
+                            <span class="slider-val-badge" id="cylDisplay">4 Cylinders</span>
+                        </div>
+                        <input type="range" class="custom-range" id="cylSlider" min="3" max="8" step="1" value="4">
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <span class="slider-title"><i class="fa-solid fa-cubes" style="color: var(--accent-purple);"></i> Displacement</span>
+                            <span class="slider-val-badge" id="dispDisplay">150 cu. in.</span>
+                        </div>
+                        <input type="range" class="custom-range" id="dispSlider" min="65" max="460" step="5" value="150">
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <span class="slider-title"><i class="fa-solid fa-stopwatch" style="color: var(--primary-cyan);"></i> 0-60 MPH Acceleration</span>
+                            <span class="slider-val-badge" id="accelDisplay">15.5 sec</span>
+                        </div>
+                        <input type="range" class="custom-range" id="accelSlider" min="8.0" max="25.0" step="0.1" value="15.5">
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <span class="slider-title"><i class="fa-solid fa-calendar-days" style="color: var(--text-muted);"></i> Model Year</span>
+                            <span class="slider-val-badge" id="yearDisplay">1976</span>
+                        </div>
+                        <input type="range" class="custom-range" id="yearSlider" min="70" max="82" step="1" value="76">
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <span class="slider-title"><i class="fa-solid fa-globe" style="color: var(--primary-blue);"></i> Manufacturing Origin</span>
+                            <span class="slider-val-badge" id="originDisplay">USA (1)</span>
+                        </div>
+                        <input type="range" class="custom-range" id="originSlider" min="1" max="3" step="1" value="1">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-dim); margin-top: 0.3rem;">
+                            <span>1: USA</span>
+                            <span>2: Europe</span>
+                            <span>3: Japan</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Telemetry Dial & Predictive Intelligence -->
+                <div>
+                    <!-- Speedometer Gauge Card -->
+                    <div class="mpg-gauge-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                            <span style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary-cyan);">
+                                <i class="fa-solid fa-microchip"></i> Predicted Fuel Economy
+                            </span>
+                            <span class="grade-badge-large" id="gradeBadge" style="color: #06b6d4; border-color: #06b6d4;">B</span>
+                        </div>
+
+                        <!-- SVG Dial -->
+                        <div class="gauge-svg-container">
+                            <svg viewBox="0 0 260 140" style="width: 100%; height: 100%; overflow: visible;">
+                                <defs>
+                                    <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#ef4444" />
+                                        <stop offset="35%" stop-color="#f59e0b" />
+                                        <stop offset="70%" stop-color="#06b6d4" />
+                                        <stop offset="100%" stop-color="#10b981" />
+                                    </linearGradient>
+                                </defs>
+                                <!-- Background Arc (from 180 to 0 deg) -->
+                                <path d="M 20 130 A 110 110 0 0 1 240 130" class="gauge-dial-bg" />
+                                <!-- Dynamic Progress Arc -->
+                                <path d="M 20 130 A 110 110 0 0 1 240 130" id="gaugeProgressArc" class="gauge-dial-progress" stroke="url(#gaugeGradient)" />
+                                <!-- Needle -->
+                                <g id="gaugeNeedleGroup" class="gauge-needle" transform="rotate(-90 130 130)">
+                                    <polygon points="126,130 134,130 130,25" fill="#00f2fe" filter="drop-shadow(0 0 6px #00f2fe)" />
+                                    <circle cx="130" cy="130" r="8" fill="#ffffff" stroke="#0e1526" stroke-width="3" />
+                                </g>
+                            </svg>
+
+                            <div class="gauge-display-content">
+                                <div class="gauge-main-number" id="predMpgValue">27.4</div>
+                                <div class="gauge-unit">Miles Per Gallon</div>
+                                <div class="gauge-ci" id="predCiValue">95% CI: [21.8 - 33.0] MPG</div>
+                            </div>
+                        </div>
+
+                        <!-- Environmental & Cost Row -->
+                        <div class="efficiency-summary-row">
+                            <div class="eff-stat-box">
+                                <div class="eff-stat-label"><i class="fa-solid fa-gas-pump"></i> Annual Fuel Cost</div>
+                                <div class="eff-stat-value" id="statAnnualCost">$1,971</div>
+                                <div style="font-size: 0.72rem; color: var(--text-dim);">@ 15k mi / $3.60 gal</div>
+                            </div>
+                            <div class="eff-stat-box">
+                                <div class="eff-stat-label"><i class="fa-solid fa-piggy-bank"></i> Annual Savings</div>
+                                <div class="eff-stat-value" id="statAnnualSavings" style="color: var(--accent-emerald);">+$729</div>
+                                <div style="font-size: 0.72rem; color: var(--text-dim);">vs. 20 MPG Fleet Avg</div>
+                            </div>
+                            <div class="eff-stat-box">
+                                <div class="eff-stat-label"><i class="fa-solid fa-smog"></i> Carbon Footprint</div>
+                                <div class="eff-stat-value" id="statCo2Tons">4.86 <span style="font-size: 0.75rem;">Tons</span></div>
+                                <div style="font-size: 0.72rem; color: var(--text-dim);">Annual CO₂ Output</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Archetype Match Banner -->
+                    <div class="archetype-banner" id="archetypeBanner">
+                        <div class="archetype-icon-box" id="archetypeIconBox">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--primary-cyan); font-weight: 700; letter-spacing: 0.06em;">
+                                Unsupervised Archetype Match (<span id="archetypeMatchScore">94%</span> Match)
+                            </div>
+                            <div class="archetype-name-tag" id="archetypeNameTag">Eco Commuter</div>
+                            <div class="archetype-tagline" id="archetypeDesc">Sub-compact 4-cylinder architecture engineered for maximum fuel conservation.</div>
+                        </div>
+                    </div>
+
+                    <!-- Feature Impact Waterfall Chart -->
+                    <div class="panel-card" style="margin-bottom: 1.5rem;">
+                        <div class="panel-card-header" style="margin-bottom: 0.8rem; padding-bottom: 0.5rem;">
+                            <div class="panel-card-title" style="font-size: 1.05rem;">
+                                <i class="fa-solid fa-chart-column" style="color: var(--accent-emerald);"></i> Feature Impact Attribution (SHAP-Style)
+                            </div>
+                            <span style="font-size: 0.75rem; color: var(--text-dim);">Delta MPG Contributions (&Delta;)</span>
+                        </div>
+                        <div class="chart-box" style="height: 210px;">
+                            <canvas id="featureImpactChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Reverse Optimization: Target MPG Advisor -->
+                    <div class="panel-card" style="background: linear-gradient(135deg, rgba(14, 21, 38, 0.9), rgba(16, 185, 129, 0.05)); border-color: rgba(16, 185, 129, 0.25);">
+                        <div class="panel-card-header" style="margin-bottom: 0.8rem; padding-bottom: 0.5rem;">
+                            <div class="panel-card-title" style="font-size: 1.05rem; color: var(--accent-emerald);">
+                                <i class="fa-solid fa-bullseye"></i> Reverse Target MPG Optimizer
+                            </div>
+                            <span style="font-size: 0.75rem; color: var(--accent-emerald); font-weight: 600;">Trade-Off Envelope</span>
+                        </div>
+                        <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 0.8rem;">
+                            <span style="font-size: 0.85rem; color: var(--text-muted);">Set Target Goal:</span>
+                            <input type="number" id="targetMpgInput" value="35" min="15" max="50" step="1" style="background: #070a12; border: 1px solid var(--border-glass); color: var(--primary-cyan); font-family: var(--font-mono); font-weight: bold; width: 70px; padding: 0.3rem 0.5rem; border-radius: 6px; text-align: center;">
+                            <span style="font-size: 0.85rem; color: var(--text-muted);">MPG</span>
+                            <button id="calcOptimizeBtn" class="preset-chip" style="border-color: var(--accent-emerald); color: var(--accent-emerald);">
+                                <i class="fa-solid fa-calculator"></i> Calculate Trade-Offs
+                            </button>
+                        </div>
+                        <div id="targetOptimizeResult" style="font-size: 0.85rem; color: var(--text-main); background: rgba(0,0,0,0.25); padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                            To achieve <strong>35.0 MPG</strong>, reduce vehicle weight by <strong>~520 lbs</strong> and engine output by <strong>~18 HP</strong>, saving an estimated <strong>$428/year</strong> in gasoline.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Vehicle Class Profiler (Clustering Studio) -->
+        <section id="profiler" style="margin-bottom: 4rem;">
+            <div class="section-header">
+                <div>
+                    <div class="section-tag"><i class="fa-solid fa-shapes"></i> Unsupervised Learning</div>
+                    <h2 class="section-title">Vehicle Class Profiler & Archetypes</h2>
+                    <p class="section-desc">K-Means clustering algorithm partitions vehicles into 4 distinct physical design archetypes based on 6 core mechanical attributes.</p>
+                </div>
+            </div>
+
+            <div class="grid-2col" style="margin-bottom: 2rem;">
+                <!-- Radar Spec Profiles -->
+                <div class="panel-card">
+                    <div class="panel-card-header">
+                        <div class="panel-card-title">
+                            <i class="fa-solid fa-chart-pie" style="color: var(--primary-cyan);"></i> Multidimensional Archetype Radar
+                        </div>
+                        <span style="font-size: 0.75rem; color: var(--text-dim);">6-Feature Geometric Fingerprint</span>
+                    </div>
+                    <div class="chart-box" style="height: 340px;">
+                        <canvas id="archetypeRadarChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- 2D Projection Scatter -->
+                <div class="panel-card">
+                    <div class="panel-card-header">
+                        <div class="panel-card-title">
+                            <i class="fa-solid fa-chart-line" style="color: var(--primary-blue);"></i> Cluster Projection Scatter
+                        </div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <select id="scatterXSelect" class="select-filter" style="padding: 0.2rem 0.5rem; font-size: 0.78rem;">
+                                <option value="weight">X: Weight</option>
+                                <option value="horsepower">X: Horsepower</option>
+                                <option value="displacement">X: Displacement</option>
+                                <option value="acceleration">X: Acceleration</option>
+                            </select>
+                            <select id="scatterYSelect" class="select-filter" style="padding: 0.2rem 0.5rem; font-size: 0.78rem;">
+                                <option value="mpg">Y: MPG</option>
+                                <option value="horsepower">Y: Horsepower</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="chart-box" style="height: 340px;">
+                        <canvas id="clusterScatterChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Archetype Cards -->
+            <div class="archetype-cards-grid">
+                <!-- Eco Commuter -->
+                <div class="archetype-spec-card">
+                    <span class="archetype-card-badge" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3);">
+                        <i class="fa-solid fa-leaf"></i> Cluster 0
+                    </span>
+                    <h3 style="font-family: var(--font-heading); font-size: 1.2rem; font-weight: 800; color: #10b981;">Eco Commuters</h3>
+                    <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.3rem;">Ultra-lightweight 4-cylinders optimized for fuel economy.</p>
+                    <ul class="spec-list">
+                        <li>Average MPG: <span style="color: #10b981;">31.8 MPG</span></li>
+                        <li>Average Horsepower: <span>77.3 HP</span></li>
+                        <li>Average Curb Weight: <span>2,347 lbs</span></li>
+                        <li>Typical Cylinders: <span>4 Cyl</span></li>
+                        <li>Sample Models: <span>Corolla, Civic, VW Rabbit</span></li>
+                    </ul>
+                </div>
+
+                <!-- Balanced Daily Sedan -->
+                <div class="archetype-spec-card">
+                    <span class="archetype-card-badge" style="background: rgba(6, 182, 212, 0.15); color: #06b6d4; border: 1px solid rgba(6, 182, 212, 0.3);">
+                        <i class="fa-solid fa-shield-halved"></i> Cluster 1
+                    </span>
+                    <h3 style="font-family: var(--font-heading); font-size: 1.2rem; font-weight: 800; color: #06b6d4;">Balanced Daily Sedans</h3>
+                    <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.3rem;">Reliable mid-weight commuters with versatile balance.</p>
+                    <ul class="spec-list">
+                        <li>Average MPG: <span style="color: #06b6d4;">25.2 MPG</span></li>
+                        <li>Average Horsepower: <span>81.4 HP</span></li>
+                        <li>Average Curb Weight: <span>2,302 lbs</span></li>
+                        <li>Typical Cylinders: <span>4 - 6 Cyl</span></li>
+                        <li>Sample Models: <span>Datsun 710, Ford Pinto</span></li>
+                    </ul>
+                </div>
+
+                <!-- Mid-Size Cruiser -->
+                <div class="archetype-spec-card">
+                    <span class="archetype-card-badge" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3);">
+                        <i class="fa-solid fa-compass"></i> Cluster 2
+                    </span>
+                    <h3 style="font-family: var(--font-heading); font-size: 1.2rem; font-weight: 800; color: #f59e0b;">Mid-Size Cruisers</h3>
+                    <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.3rem;">Comfort highway cruisers with 6-cylinder torque.</p>
+                    <ul class="spec-list">
+                        <li>Average MPG: <span style="color: #f59e0b;">19.9 MPG</span></li>
+                        <li>Average Horsepower: <span>103.3 HP</span></li>
+                        <li>Average Curb Weight: <span>3,280 lbs</span></li>
+                        <li>Typical Cylinders: <span>6 Cyl</span></li>
+                        <li>Sample Models: <span>Chevelle, Plymouth Volare</span></li>
+                    </ul>
+                </div>
+
+                <!-- V8 Muscle -->
+                <div class="archetype-spec-card">
+                    <span class="archetype-card-badge" style="background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3);">
+                        <i class="fa-solid fa-fire"></i> Cluster 3
+                    </span>
+                    <h3 style="font-family: var(--font-heading); font-size: 1.2rem; font-weight: 800; color: #ef4444;">V8 Muscle & Haulers</h3>
+                    <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.3rem;">High-displacement V8 powerplants delivering peak torque.</p>
+                    <ul class="spec-list">
+                        <li>Average MPG: <span style="color: #ef4444;">14.4 MPG</span></li>
+                        <li>Average Horsepower: <span>162.4 HP</span></li>
+                        <li>Average Curb Weight: <span>4,158 lbs</span></li>
+                        <li>Typical Cylinders: <span>8 Cyl</span></li>
+                        <li>Sample Models: <span>Mustang Mach 1, Pontiac Firebird</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Model Diagnostics & Regularization Lab -->
+        <section id="diagnostics" style="margin-bottom: 4rem;">
+            <div class="section-header">
+                <div>
+                    <div class="section-tag"><i class="fa-solid fa-flask-vial"></i> Model Diagnostics & Mathematics</div>
+                    <h2 class="section-title">Regularization Path & Performance Lab</h2>
+                    <p class="section-desc">Evaluate the shrinkage dynamics of L1 (Lasso) vs L2 (Ridge) penalties, preventing multicollinearity among displacement, horsepower, and weight.</p>
+                </div>
+            </div>
+
+            <div class="grid-2col" style="margin-bottom: 2rem;">
+                <!-- Regularization Path -->
+                <div class="panel-card">
+                    <div class="panel-card-header">
+                        <div class="panel-card-title">
+                            <i class="fa-solid fa-wave-square" style="color: var(--accent-purple);"></i> Coefficient Shrinkage Path
+                        </div>
+                        <div style="display: flex; gap: 0.4rem;">
+                            <button id="pathToggleRidge" class="preset-chip active" style="font-size: 0.75rem;">Ridge (L₂)</button>
+                            <button id="pathToggleLasso" class="preset-chip" style="font-size: 0.75rem;">Lasso (L₁)</button>
+                        </div>
+                    </div>
+                    <div class="chart-box" style="height: 320px;">
+                        <canvas id="regularizationPathChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Actual vs Predicted Parity -->
+                <div class="panel-card">
+                    <div class="panel-card-header">
+                        <div class="panel-card-title">
+                            <i class="fa-solid fa-crosshairs" style="color: var(--primary-cyan);"></i> Actual vs. Predicted Parity Plot
+                        </div>
+                        <span style="font-size: 0.75rem; color: var(--accent-emerald);">45&deg; Perfect Prediction Line</span>
+                    </div>
+                    <div class="chart-box" style="height: 320px;">
+                        <canvas id="actualVsPredChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mathematical Formulation & Comparison Table -->
+            <div class="grid-2col">
+                <!-- Mathematical Overview -->
+                <div class="panel-card">
+                    <div class="panel-card-header">
+                        <div class="panel-card-title">
+                            <i class="fa-solid fa-square-root-variable" style="color: var(--accent-amber);"></i> Regularization Loss Functions
+                        </div>
+                    </div>
+                    <div style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.8;">
+                        <p style="margin-bottom: 0.8rem;">
+                            <strong style="color: var(--primary-cyan);">Ridge Regression (L₂ Penalty):</strong><br>
+                            $$\min_{\mathbf{w}} \frac{1}{2n} \|\mathbf{y} - \mathbf{X}\mathbf{w}\|_2^2 + \alpha \|\mathbf{w}\|_2^2$$
+                            Shrinks collinear weights smoothly towards zero without dropping features, stabilizing estimates when weight and displacement correlate heavily ($r > 0.9$).
+                        </p>
+                        <p style="margin-bottom: 0.8rem;">
+                            <strong style="color: var(--accent-emerald);">Lasso Regression (L₁ Penalty):</strong><br>
+                            $$\min_{\mathbf{w}} \frac{1}{2n} \|\mathbf{y} - \mathbf{X}\mathbf{w}\|_2^2 + \alpha \|\mathbf{w}\|_1$$
+                            Produces sparse models by driving redundant feature coefficients to exact zero through soft-thresholding.
+                        </p>
+                        <p>
+                            <strong style="color: var(--accent-purple);">ElasticNet (Convex Combination):</strong><br>
+                            $$\min_{\mathbf{w}} \frac{1}{2n} \|\mathbf{y} - \mathbf{X}\mathbf{w}\|_2^2 + \alpha \rho \|\mathbf{w}\|_1 + \frac{\alpha(1-\rho)}{2} \|\mathbf{w}\|_2^2$$
+                            Combines feature selection with grouped shrinkage stability.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Model Benchmark Table -->
+                <div class="panel-card">
+                    <div class="panel-card-header">
+                        <div class="panel-card-title">
+                            <i class="fa-solid fa-table-list" style="color: var(--accent-emerald);"></i> Cross-Validated Benchmark Table
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Model</th>
+                                    <th>Test R²</th>
+                                    <th>RMSE</th>
+                                    <th>MAE</th>
+                                    <th>5-Fold CV</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong style="color: var(--primary-cyan);">Ridge (&alpha;=1.0)</strong></td>
+                                    <td>0.8474</td>
+                                    <td>2.86 MPG</td>
+                                    <td>2.25 MPG</td>
+                                    <td>0.595</td>
+                                </tr>
+                                <tr>
+                                    <td><strong style="color: var(--accent-emerald);">Lasso (&alpha;=0.5)</strong></td>
+                                    <td>0.8487</td>
+                                    <td>2.85 MPG</td>
+                                    <td>2.21 MPG</td>
+                                    <td>0.568</td>
+                                </tr>
+                                <tr>
+                                    <td><strong style="color: var(--accent-purple);">ElasticNet</strong></td>
+                                    <td>0.8472</td>
+                                    <td>2.86 MPG</td>
+                                    <td>2.26 MPG</td>
+                                    <td>0.580</td>
+                                </tr>
+                                <tr>
+                                    <td><strong style="color: var(--text-muted);">Standard OLS</strong></td>
+                                    <td>0.8476</td>
+                                    <td>2.86 MPG</td>
+                                    <td>2.25 MPG</td>
+                                    <td>0.596</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Auto MPG Dataset Explorer -->
+        <section id="dataset" style="margin-bottom: 4rem;">
+            <div class="section-header">
+                <div>
+                    <div class="section-tag"><i class="fa-solid fa-database"></i> Curated Database</div>
+                    <h2 class="section-title">Vehicle Dataset Explorer</h2>
+                    <p class="section-desc">Search, filter, and inspect all 398 historical production vehicles in the UCI Auto MPG repository.</p>
+                </div>
+            </div>
+
+            <div class="panel-card">
+                <div class="table-controls">
+                    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                        <input type="text" id="carSearchInput" class="search-input" placeholder="Search by vehicle make / model...">
+                        <select id="originFilterSelect" class="select-filter">
+                            <option value="all">All Origins (Global)</option>
+                            <option value="1">USA</option>
+                            <option value="2">Europe</option>
+                            <option value="3">Japan</option>
+                        </select>
+                        <select id="archetypeFilterSelect" class="select-filter">
+                            <option value="all">All Archetypes</option>
+                            <option value="Eco Commuter">Eco Commuter</option>
+                            <option value="Balanced Daily Sedan">Balanced Daily Sedan</option>
+                            <option value="Mid-Size Cruiser">Mid-Size Cruiser</option>
+                            <option value="V8 Muscle & Heavy Hauler">V8 Muscle & Heavy Hauler</option>
+                        </select>
+                    </div>
+                    <div style="font-size: 0.85rem; color: var(--text-muted);">
+                        Showing <span id="recordCountDisplay" style="color: var(--primary-cyan); font-weight: bold;">398</span> vehicles
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="vehiclesTable">
+                        <thead>
+                            <tr>
+                                <th data-sort="name">Vehicle Name <i class="fa-solid fa-sort"></i></th>
+                                <th data-sort="mpg">MPG <i class="fa-solid fa-sort"></i></th>
+                                <th data-sort="cylinders">Cyl <i class="fa-solid fa-sort"></i></th>
+                                <th data-sort="horsepower">HP <i class="fa-solid fa-sort"></i></th>
+                                <th data-sort="weight">Weight (lbs) <i class="fa-solid fa-sort"></i></th>
+                                <th data-sort="acceleration">0-60 Accel <i class="fa-solid fa-sort"></i></th>
+                                <th data-sort="model_year">Year <i class="fa-solid fa-sort"></i></th>
+                                <th data-sort="origin">Origin <i class="fa-solid fa-sort"></i></th>
+                                <th>Archetype</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="vehiclesTableBody">
+                            <!-- Populated dynamically by app.js -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination-bar">
+                    <div>Page <span id="currentPageDisplay" style="color: var(--text-main); font-weight: bold;">1</span> of <span id="totalPagesDisplay">40</span></div>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="pagination-btn" id="prevPageBtn" disabled><i class="fa-solid fa-chevron-left"></i> Prev</button>
+                        <button class="pagination-btn" id="nextPageBtn">Next <i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal: GitHub Deployment Guide -->
+    <div class="modal-backdrop" id="deployGuideModal">
+        <div class="modal-card">
+            <button class="modal-close-btn" id="closeDeployGuideBtn">&times;</button>
+            <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem;">
+                <i class="fa-brands fa-github" style="font-size: 1.8rem; color: var(--primary-cyan);"></i>
+                <h2 style="font-family: var(--font-heading); font-size: 1.4rem;">Deploy to GitHub Pages in 2 Minutes</h2>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.2rem;">
+                This project is completely client-side and static. Follow these quick terminal steps to push and deploy it for free:
+            </p>
+
+            <div style="font-weight: 600; font-size: 0.85rem; color: var(--primary-blue); margin-bottom: 0.4rem;">
+                Step 1: Initialize Git and Commit All Files
+            </div>
+            <div class="code-block">
+                git init<br>
+                git add .<br>
+                git commit -m "Initial commit: Automobile Efficiency Regressor & Profiler"
+            </div>
+
+            <div style="font-weight: 600; font-size: 0.85rem; color: var(--primary-blue); margin-bottom: 0.4rem;">
+                Step 2: Link to Your GitHub Repository
+            </div>
+            <div class="code-block">
+                git branch -M main<br>
+                git remote add origin https://github.com/YOUR_USERNAME/automobile-efficiency-profiler.git<br>
+                git push -u origin main
+            </div>
+
+            <div style="font-weight: 600; font-size: 0.85rem; color: var(--primary-blue); margin-bottom: 0.4rem;">
+                Step 3: Enable GitHub Pages (Free Hosting)
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem;">
+                1. Go to your repository on GitHub &rarr; <strong>Settings</strong> &rarr; <strong>Pages</strong>.<br>
+                2. Under <strong>Build and deployment &gt; Source</strong>, choose <strong>Deploy from a branch</strong>.<br>
+                3. Select branch: <code>main</code> and folder: <code>/ (root)</code> &rarr; Click <strong>Save</strong>.<br>
+                4. Your live website will be available at: <code>https://YOUR_USERNAME.github.io/automobile-efficiency-profiler/</code>
+            </p>
+
+            <div style="text-align: right;">
+                <button class="btn-github" id="closeGuideModalBtn2" style="padding: 0.5rem 1.2rem;">Got It!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#simulator">MPG Simulator</a>
+            <a href="#profiler">Vehicle Profiler</a>
+            <a href="#diagnostics">Diagnostics</a>
+            <a href="#dataset">Dataset Explorer</a>
+            <a href="data/auto_mpg.csv" download>Download CSV</a>
+        </div>
+        <p style="color: var(--text-dim); font-size: 0.85rem;">
+            Automobile Efficiency Regressor & Vehicle Class Profiler &bull; UCI Machine Learning Repository Auto MPG Dataset
+        </p>
+        <p style="color: var(--text-dim); font-size: 0.8rem; margin-top: 0.3rem;">
+            Built with Vanilla CSS, ES6 JavaScript, Scikit-Learn Pipeline, and Chart.js &bull; Ready for GitHub Pages
+        </p>
+    </footer>
+
+    <!-- Core Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/ml-engine.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
